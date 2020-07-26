@@ -1,6 +1,8 @@
 import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
+import styled from "styled-components";
+import Movie from "../components/Movie.js";
 
 const GET_MOVIES = gql`
 	{
@@ -11,12 +13,36 @@ const GET_MOVIES = gql`
 	}
 `;
 
+const Container = styled.div`
+
+`;
+
+const Header = styled.div`
+
+`;
+
+const Title = styled.h1`
+
+`;
+
+const Subtitle = styled.h3`
+
+`;
+
+const Loading = styled.div`
+
+`;
+
 export default () => {
 	const { loading, data } = useQuery(GET_MOVIES);
-	if (loading) {
-		return "loading..."
-	}
-	if (data && data.movies) {
-		return data.movies.map(m => <h1>{m.id}</h1>)
-	}
+	return (
+		<Container>
+			<Header>
+				<Title>Apollo 2020</Title>
+				<Subtitle>I built GraphQL with Apollo</Subtitle>
+			</Header>
+			{loading && <Loading>Loading...</Loading>}
+			{!loading && data.movies && data.movies.map(m => <Movie key={m.id} id={m.id} />)}
+		</Container>
+	);
 };
