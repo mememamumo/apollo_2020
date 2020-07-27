@@ -1,7 +1,7 @@
 import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Movie from "../components/Movie";
 
 const GET_MOVIES = gql`
@@ -14,26 +14,80 @@ const GET_MOVIES = gql`
 `;
 
 const Container = styled.div`
-
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 `;
 
 const Header = styled.div`
-
+	background-color: #8EC5FC;
+	background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+	height: 45vh;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 `;
 
 const Title = styled.h1`
-
+	font-size: 60px;
+	font-weight: 600;
+	margin-bottom: 20px;
 `;
 
-const Subtitle = styled.h3`
+const Subtitle = styled.h3``;
 
+const load3 = keyframes`
+	100% {
+		transform: rotate(360deg);
+	}
 `;
 
 const Loading = styled.div`
-
+	animation: ${load3} 1s infinite linear;
+  background: #334;
+  background: linear-gradient(to right, #8EC5FC 10%, rgba(221, 221, 221, 0) 70%);
+  border-radius: 50%;
+  height: 50px;
+  margin: 5em auto;
+  position: relative;
+	width: 50px;
+	&::before {
+		width: 100%;
+		height: 50%;
+		background: #8EC5FC;
+		border-radius: 50px 50px 0 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: '';
+	}
+	&::after {
+		background: #334;
+		width: 60%;
+		height: 60%;
+		border-radius: 50%;
+		content: '';
+		margin: auto;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
 `;
 
-const Movies = styled.div``;
+const Movies = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	width: 1120px;
+	margin: 0 10%;
+	position: relative;
+	top: -45px;
+`;
 
 export default () => {
 	const { loading, data } = useQuery(GET_MOVIES);
@@ -43,7 +97,7 @@ export default () => {
 				<Title>Apollo 2020</Title>
 				<Subtitle>I built GraphQL with Apollo</Subtitle>
 			</Header>
-			{loading && <Loading>Loading...</Loading>}
+			{loading && <Loading />}
 			{!loading && data.movies && (
 				<Movies>
 					{data.movies.map(m => (
