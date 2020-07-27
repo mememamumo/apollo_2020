@@ -1,8 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-export default ({id}) => (
-	<div>
-		<Link to={`/${id}`}>{id}</Link>
-	</div>
+const Container = styled.div`
+
+`;
+
+const Poster = styled.div`
+
+`;
+
+export default ({id, bg}) => (
+	<Container>
+		<Link to={`/${id}`}>
+			<Poster bg={bg} />
+		</Link>
+	</Container>
 );

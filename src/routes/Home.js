@@ -33,6 +33,8 @@ const Loading = styled.div`
 
 `;
 
+const Movies = styled.div``;
+
 export default () => {
 	const { loading, data } = useQuery(GET_MOVIES);
 	return (
@@ -42,7 +44,13 @@ export default () => {
 				<Subtitle>I built GraphQL with Apollo</Subtitle>
 			</Header>
 			{loading && <Loading>Loading...</Loading>}
-			{!loading && data.movies && data.movies.map(m => <Movie key={m.id} id={m.id} />)}
+			{!loading && data.movies && (
+				<Movies>
+					{data.movies.map(m => (
+						<Movie key={m.id} id={m.id} bg={m.medium_cover_image} />
+					))}
+				</Movies>
+			)}
 		</Container>
 	);
 };
