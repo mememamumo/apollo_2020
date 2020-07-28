@@ -3,11 +3,13 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import styled, { keyframes } from "styled-components";
 import Movie from "../components/Movie";
+import { device } from "../assets/device";
 
 const GET_MOVIES = gql`
 	{
 		movies {
 			id
+			title
 			medium_cover_image
 		}
 	}
@@ -17,13 +19,13 @@ const Container = styled.div`
 	display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+	width: 100%;
 `;
 
 const Header = styled.div`
 	background-color: #8EC5FC;
 	background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
-	height: 45vh;
+	height: 420px;
 	color: white;
 	display: flex;
 	flex-direction: column;
@@ -36,6 +38,9 @@ const Title = styled.h1`
 	font-size: 60px;
 	font-weight: 600;
 	margin-bottom: 20px;
+	@media ${device.mobileS} {
+		font-size: 40px;
+	}
 `;
 
 const Subtitle = styled.h3``;
@@ -80,13 +85,21 @@ const Loading = styled.div`
 	}
 `;
 
-const Movies = styled.div`
-	display: flex;
+const Movies = styled.ul`
+	display:flex;
 	flex-wrap: wrap;
-	width: 1120px;
-	margin: 0 10%;
+	justify-content: center;
+	align-content: center;
+	width: 100%;
+	max-width: 1120px;
+	height: 100%;
+	margin: 0 auto;
 	position: relative;
-	top: -45px;
+	top: -70px;
+	text-align: left;
+	@media ${device.tablet} {
+		top: -75px;
+  }
 `;
 
 export default () => {
@@ -101,7 +114,7 @@ export default () => {
 			{!loading && data.movies && (
 				<Movies>
 					{data.movies.map(m => (
-						<Movie key={m.id} id={m.id} bg={m.medium_cover_image} />
+						<Movie key={m.id} id={m.id} bg={m.medium_cover_image} title={m.title} />
 					))}
 				</Movies>
 			)}

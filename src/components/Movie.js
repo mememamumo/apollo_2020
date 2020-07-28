@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { device } from "../assets/device";
 
 const Poster = styled.div`
 	position: relative;
 	padding: 0;
-	margin: 16px;
-	width: 192px;
+	display: block;
+	width: 100%;
+	min-width: 192px;
 	height: 280px;
+	object-fit: cover;
 	border-radius: 4px;
 	box-shadow: 0 8px 16px #1126;
 	background: #111;
@@ -24,6 +27,20 @@ const Poster = styled.div`
 		height: 100%;
 		background: linear-gradient(to bottom, transparent 10%, #113d 90%);
 	}
+	@media ${device.mobileL} {
+		width: 100%;
+		min-width: 414px;
+		height: 280px;
+		margin: 14px auto;
+		border-radius: 0;
+	}
+	@media ${device.mobileM} {
+		min-width: 375px;
+	}
+	@media ${device.mobileS} {
+		min-width: 320px;
+		height: 220px;
+  }
 `;
 
 const Title = styled.h2`
@@ -40,25 +57,51 @@ const Title = styled.h2`
 	z-index: 5;
 	font-weight: bold;
 	text-shadow: 0 0 4px #111;
+	@media ${device.mobileL} {
+		font-size: 2em;
+	}
+	@media ${device.mobileM} {
+		font-size: 1.4em;
+  }
 `;
 
-const Container = styled.div`
-	display: flex;
-	flex-wrap: wrap;
+const Container = styled.li`
+	display: grid;
+	margin: 14px;
+	align-items: start;
 	&:nth-child(5n+1) ${Poster} {
 		width: 416px;
 	}
 	&:nth-child(5n+1) ${Title} {
 		font-size: 2em;
 	}
+	@media ${device.mobileL} {
+		margin: 0;
+	}
+	@media ${device.mobileM} {
+		&:nth-child(5n+1) ${Poster} {
+			width: 375px;
+		}
+		&:nth-child(5n+1) ${Title} {
+			font-size: 1.4em;
+		}
+	}
+	@media ${device.mobileS} {
+		&:nth-child(5n+1) ${Poster} {
+			width: 320px;
+		}
+		&:nth-child(5n+1) ${Title} {
+			font-size: 1.4em;
+		}
+  }
 `;
 
 export default ({id, bg, title}) => (
 	<Container>
 		<Link to={`/${id}`}>
 			<Poster bg={bg}>
-			<Title>Title</Title>
+			<Title>{title}</Title>
 			</Poster>
 		</Link>
-	</Container>
+	</Container>	
 );

@@ -53,3 +53,7 @@ body {
 	background: #334;
 	font-family: 'Inter';
 }
+
+a {
+	text-decoration: none;
+}
