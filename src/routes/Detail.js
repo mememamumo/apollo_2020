@@ -14,6 +14,7 @@ const GET_MOVIE = gql`
 			language
 			rating
 			description_intro
+			background_image
 		}
 		suggestions(id: $id) {
 			id
@@ -24,8 +25,6 @@ const GET_MOVIE = gql`
 `;
 
 const Container = styled.div`
-	background-color: #8EC5FC;
-	background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -34,6 +33,11 @@ const Container = styled.div`
 	align-items: center;
 	flex-direction: column;
 	color: white;
+	background: url(${props => props.bg});
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #334;
 	flex: 1 1 auto;
 	overflow-y: auto;
 	padding: 50px 0;
@@ -142,7 +146,7 @@ const Loading = styled.div`
 		content: '';
 	}
 	&::after {
-		background: #E0C3FC;
+		background: #334;
 		width: 60%;
 		height: 60%;
 		border-radius: 50%;
@@ -163,10 +167,17 @@ const Home = styled(Link)`
 	font-size: 24px;
 	justify-content: flex-start;
 	margin-left: 20px;
-	&::before {
-		content: "< ";
+	transition: .2s;
+	span {
+		display: inline-block;
+		margin-right: 10px;
+		transition: .2s;
 		color: white;
-		font-size: 28px;
+	}
+	&:hover {
+		span {
+			margin-right: 1.5rem;
+		}
 	}
 `;
 
@@ -176,11 +187,11 @@ export default () => {
 		variables: {id: parseInt(id)}
 	});
 	return (
-		<Container>
+		<Container bg={data?.movie?.background_image}>
 			{loading && <Loading />}
 			{!loading && data.movie && (
 				<>
-					<Home to="/">Apollo 2020</Home>
+					<Home to="/"><span>&larr;</span>Apollo 2020</Home>
 					<Wrapper>
 						<Column>
 							<Title>{data?.movie?.title}</Title>

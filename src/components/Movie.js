@@ -69,11 +69,16 @@ const Container = styled.li`
 	display: grid;
 	margin: 14px;
 	align-items: start;
+	transition: .2s;
 	&:nth-child(5n+1) ${Poster} {
 		width: 416px;
 	}
 	&:nth-child(5n+1) ${Title} {
 		font-size: 2em;
+	}
+	&:hover {
+		transform: translateY(-1%);
+		box-shadow: 0 4rem 8rem rgba(0, 0, 0, .3);
 	}
 	@media ${device.mobileL} {
 		margin: 0;
