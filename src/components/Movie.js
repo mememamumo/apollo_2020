@@ -74,6 +74,7 @@ const Title = styled.h2`
 `;
 
 const Container = styled.li`
+	position: relative;
 	display: grid;
 	margin: 14px;
 	align-items: start;
@@ -109,6 +110,23 @@ const Container = styled.li`
   }
 `;
 
+const Like = styled.button`
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 14px;
+	font-weight: 500;
+	background-color: #334;
+	color: #fff;
+	border-radius: 2px;
+	padding: 4px 12px;
+	&:hover {
+		background-color: #fff;
+		color: #334;
+		transition: .2s;
+	}
+`;
+
 export default ({id, bg, title, isLiked}) => {
 	const [likeMovie] = useMutation(LIKE_MOVIE, { variables: {id: parseInt(id), isLiked}});
 	return (
@@ -118,7 +136,7 @@ export default ({id, bg, title, isLiked}) => {
 				<Title>{title}</Title>
 				</Poster>
 			</Link>
-			<button onClick={likeMovie}>{isLiked ? "Unlike" : "Like"}</button>
+			<Like onClick={likeMovie}>{isLiked ? "Unlike" : "Like"}</Like>
 		</Container>		
 	);
 };
