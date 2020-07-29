@@ -9,17 +9,21 @@ import { device } from "../assets/device";
 const GET_MOVIE = gql`
 	query getMovie($id: Int!) {
 		movie(id: $id) {
+			id
 			title
 			medium_cover_image
+			genres
 			language
 			rating
 			description_intro
 			background_image
+			isLiked @client
 		}
 		suggestions(id: $id) {
 			id
 			title
 			medium_cover_image
+			isLiked @client
 		}
 	}
 `;
@@ -78,6 +82,20 @@ const Title = styled.h1`
 const Subtitle = styled.h4`
 	font-size: 20px;
 	margin-bottom: 10px;
+`;
+
+const List = styled.ul`
+	display: flex;
+	font-size: 20px;
+	margin-bottom: 10px;
+	li::before {
+		content: "/ ";
+		margin-left: 3px;
+	}
+	li:first-child::before {
+		content: "";
+		margin-left: 0;
+	}
 `;
 
 const Description = styled.p`
@@ -194,7 +212,10 @@ export default () => {
 					<Home to="/"><span>&larr;</span>Apollo 2020</Home>
 					<Wrapper>
 						<Column>
-							<Title>{data?.movie?.title}</Title>
+							<Title>{`${data?.movie?.title} ${data.movie.isLiked ? "🥳" : "🤡"}`}</Title>
+							<List>
+								{data?.movie?.genres.map((gen, index) => <li key={index}>{gen}</li>)}
+							</List>
 							<Subtitle>{data?.movie?.language}</Subtitle>
 							<Subtitle>{data?.movie?.rating}</Subtitle>
 							<Description>{data?.movie?.description_intro}</Description>
@@ -202,7 +223,7 @@ export default () => {
 						<Poster bg={data?.movie?.medium_cover_image}></Poster>
 					</Wrapper>
 					<Movies>
-						{data && data.suggestions && data.suggestions.map(s => <Movie key={s.id} id={s.id} title={s.title} bg={s.medium_cover_image} />)}
+						{data && data.suggestions && data.suggestions.map(s => <Movie key={s.id} id={s.id} isLiked={s.isLiked} title={s.title} bg={s.medium_cover_image} />)}
 					</Movies>
 				</>
 			)}

@@ -6,8 +6,8 @@ import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 
 const LIKE_MOVIE = gql`
-	mutation likeMovie($id: Int!) {
-		likeMovie(id: $id) @client
+	mutation toggleLikeMovie($id: Int!, $isLiked: Boolean!) {
+		toggleLikeMovie(id: $id, isLiked: $isLiked) @client
 	}
 `;
 
@@ -110,7 +110,7 @@ const Container = styled.li`
 `;
 
 export default ({id, bg, title, isLiked}) => {
-	const [likeMovie] = useMutation(LIKE_MOVIE, { variables: {id: parseInt(id)}});
+	const [likeMovie] = useMutation(LIKE_MOVIE, { variables: {id: parseInt(id), isLiked}});
 	return (
 		<Container>
 			<Link to={`/${id}`}>
@@ -118,7 +118,7 @@ export default ({id, bg, title, isLiked}) => {
 				<Title>{title}</Title>
 				</Poster>
 			</Link>
-			<button onClick={isLiked? null: likeMovie}>{isLiked ? "Unlike" : "Like"}</button>
+			<button onClick={likeMovie}>{isLiked ? "Unlike" : "Like"}</button>
 		</Container>		
 	);
 };
