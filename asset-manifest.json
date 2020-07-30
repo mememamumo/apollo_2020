@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/apollo_2020/static/js/main.3bd270c4.chunk.js",
+    "main.js.map": "/apollo_2020/static/js/main.3bd270c4.chunk.js.map",
+    "runtime-main.js": "/apollo_2020/static/js/runtime-main.89c0fd62.js",
+    "runtime-main.js.map": "/apollo_2020/static/js/runtime-main.89c0fd62.js.map",
+    "static/js/2.eac78d26.chunk.js": "/apollo_2020/static/js/2.eac78d26.chunk.js",
+    "static/js/2.eac78d26.chunk.js.map": "/apollo_2020/static/js/2.eac78d26.chunk.js.map",
+    "index.html": "/apollo_2020/index.html",
+    "precache-manifest.b68887d300c00c498a2e27327d170879.js": "/apollo_2020/precache-manifest.b68887d300c00c498a2e27327d170879.js",
+    "service-worker.js": "/apollo_2020/service-worker.js",
+    "static/js/2.eac78d26.chunk.js.LICENSE.txt": "/apollo_2020/static/js/2.eac78d26.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.89c0fd62.js",
+    "static/js/2.eac78d26.chunk.js",
+    "static/js/main.3bd270c4.chunk.js"
+  ]
+}
